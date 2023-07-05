@@ -1,6 +1,10 @@
 /* Define colors */
 :root {
-    --main-color:#2C2A29;
+    --first-color:#2C2A29;
+    --second-color:;
+    --third-color:;
+    --fourth-color:;
+    --fifth-color:;
 }
 
 
@@ -8,7 +12,7 @@
 
 #login-div h3, 
 #login-div h4 {
-  color: var(--main-color);
+  color: var(--first-color);
 }
 
 #upper-login-div {
@@ -58,10 +62,10 @@
  
 #link-div a {
   display: block;
-  color: #023d6b;
+  color: var(--first-color);
   padding: 15px 20px 15px 30px;
-  background: url("/hub/static/images/sprite.png") #adbde3 no-repeat 12px -5139px;
-  /* background-color: #64B1BC; */
+  background: url("/hub/static/images/sprite.png") var(--second-color) no-repeat 12px -5139px;
+  /* background-color: var(--second-color); */
 }
 
 #link-div a:hover {
@@ -90,7 +94,7 @@
 }
 
 .carousel-item a {
-  color: #023d6b;
+  color: var(--first-color);
 }
 .carousel-item h3 {
   background: url("/hub/static/images/pages/login/blue_line.png") no-repeat 0 100%;
@@ -104,7 +108,7 @@
 
 .carousel-indicators button {
   border: 2px solid white !important;
-  background-color: #adbde3 !important;
+  background-color: var(--second-color) !important;
   border-radius: 50%;
   height: 14px !important;
   width: 14px !important;
@@ -116,7 +120,7 @@
 }
 
 .carousel-indicators button.active {
-  background-color: #023d6b !important;
+  background-color:var(--first-color) !important;
 }
 
 .carousel-control-prev,
