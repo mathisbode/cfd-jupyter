@@ -2,7 +2,7 @@
 
 html,
 body {
-  background-color: #023d6b;
+  background-color:  var(--first-color);
   /* background: #fefefe; */
   font-family: "Weissenhof_Grotesk", Arial, Helvetica, sans-serif;
   height: 100%;
@@ -14,7 +14,7 @@ main {
 }
 
 .bg-primary {
-  background: #023d6b !important;
+  background:  var(--first-color) !important;
   color: #fff; 
 }
 
@@ -25,7 +25,7 @@ main {
 
 .bg-info {
   background: #adbde3 !important;
-  /* color: #023d6b; */
+  /* color:  var(--first-color); */
 }
 
 .text-secondary {
@@ -45,7 +45,7 @@ main {
 
 a {
   text-decoration: none;
-  color: #023d6b;
+  color:  var(--first-color);
 }
 
 a:hover {
@@ -55,7 +55,7 @@ a:hover {
 }
 
 a.nav-link {
-  color: #023d6b;
+  color:  var(--first-color);
 }
 
 a.nav-link:hover {
@@ -66,8 +66,8 @@ a.nav-link:hover {
 /* Buttons */
 
 .btn-primary {
-  background-color: #023d6b;
-  border-color: #023d6b;
+  background-color:  var(--first-color);
+  border-color:  var(--first-color);
 }
 
 .btn-primary:hover,
@@ -78,15 +78,15 @@ a.nav-link:hover {
 }
 
 .btn-outline-primary {
-  border-color: #023d6b;
-  color: #023d6b;
+  border-color:  var(--first-color);
+  color:  var(--first-color);
 }
 
 .btn-outline-primary:hover,
 .btn-outline-primary:focus,
 .btn-outline-primary:active {
-  background-color: #023d6b;
-  border-color: #023d6b;
+  background-color:  var(--first-color);
+  border-color:  var(--first-color);
   color: #fff;
 }
 
@@ -94,7 +94,7 @@ a.nav-link:hover {
 /* Progress bar */
 
 .progress-bar {
-  background-color: #023d6b;
+  background-color:  var(--first-color);
 }
 
 
