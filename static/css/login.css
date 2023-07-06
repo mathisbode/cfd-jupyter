@@ -141,9 +141,6 @@
   no-repeat;
   background-size: cover;
   min-height: 500px;
-  position: relative;
-  top: 50%;
-  transform: translateY(-50%);
 }
 
 #coec_login_inner
@@ -154,6 +151,10 @@
   max-width: 900px;
   width: auto;
   background-color: rgb(255, 255, 255, 0.7);
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+
 }
 
 
