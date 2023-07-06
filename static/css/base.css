@@ -24,7 +24,7 @@ main {
 }
 
 .bg-info {
-  background: #adbde3 !important;
+  background:  var(--second-color) !important;
   /* color:  var(--first-color); */
 }
 
@@ -51,7 +51,7 @@ a {
 a:hover {
   text-decoration: underline;
   text-decoration-skip-ink: none;
-  color: #002036;
+  color:  var(--third-color);
 }
 
 a.nav-link {
@@ -59,7 +59,7 @@ a.nav-link {
 }
 
 a.nav-link:hover {
-  color: #002036;
+  color:  var(--third-color);
 }
 
 
@@ -102,7 +102,7 @@ a.nav-link:hover {
 
 .form-select.disabled {
   pointer-events: none;
-  background-color: #e9ecef;
+  background-color:  var(--fifth-color);
   background-image: none;
 }
 
