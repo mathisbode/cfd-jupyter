@@ -73,8 +73,8 @@ a.nav-link:hover {
 .btn-primary:hover,
 .btn-primary:focus,
 .btn-primary:active {
-  background-color: #225f8d;
-  border-color: #225f8d;
+  background-color: var(--first-color-light);;
+  border-color: var(--first-color-light);;
 }
 
 .btn-outline-primary {
