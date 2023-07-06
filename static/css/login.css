@@ -133,3 +133,12 @@
 .carousel-control-next-icon {
   background-image: url("/hub/static/images/pages/login/right_whitebg_arrow.svg");
 }
+
+
+#coec_login
+{
+  background: url("/hub/static/images/pages/login/background.jpg") center center
+  no-repeat;
+  background-size: cover;
+  min-height: 500px;
+}
