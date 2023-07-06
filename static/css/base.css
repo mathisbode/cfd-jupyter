@@ -1,0 +1,125 @@
+@import url(color.css);
+
+html,
+body {
+  background-color:  var(--first-color);
+  /* background: #fefefe; */
+  font-family: "Weissenhof_Grotesk", Arial, Helvetica, sans-serif;
+  height: 100%;
+}
+
+main {
+  color: #fff;
+  flex-grow: 1;
+}
+
+.bg-primary {
+  background:  var(--first-color) !important;
+  color: #fff; 
+}
+
+.bg-secondary {
+  background: #eee !important;
+  color: #000;
+}
+
+.bg-info {
+  background:  var(--second-color) !important;
+  /* color:  var(--first-color); */
+}
+
+.text-secondary {
+  color: #eee !important;
+}
+
+
+/* Align icons */
+.bi {
+  vertical-align: -.125em;
+  width: 1em;
+  height: 1em;
+}
+
+
+/* Links and nav links */
+
+a {
+  text-decoration: none;
+  color:  var(--first-color);
+}
+
+a:hover {
+  text-decoration: underline;
+  text-decoration-skip-ink: none;
+  color:  var(--third-color);
+}
+
+a.nav-link {
+  color:  var(--first-color);
+}
+
+a.nav-link:hover {
+  color:  var(--third-color);
+}
+
+
+/* Buttons */
+
+.btn-primary {
+  background-color:  var(--first-color);
+  border-color:  var(--first-color);
+}
+
+.btn-primary:hover,
+.btn-primary:focus,
+.btn-primary:active {
+  background-color: #225f8d;
+  border-color: #225f8d;
+}
+
+.btn-outline-primary {
+  border-color:  var(--first-color);
+  color:  var(--first-color);
+}
+
+.btn-outline-primary:hover,
+.btn-outline-primary:focus,
+.btn-outline-primary:active {
+  background-color:  var(--first-color);
+  border-color:  var(--first-color);
+  color: #fff;
+}
+
+
+/* Progress bar */
+
+.progress-bar {
+  background-color:  var(--first-color);
+}
+
+
+/* Visually disabled select dropdowns */
+
+.form-select.disabled {
+  pointer-events: none;
+  background-color:  var(--fifth-color);
+  background-image: none;
+}
+
+
+/* Log divs */
+
+.log-div:not(:first-child) {
+  padding-top: 0.25rem;
+}
+
+
+/* JQuery confirm boxes */
+
+.jconfirm-box .checkbox {
+  margin-top: 10px;
+}
+
+input[type='checkbox'] {
+  margin-right: 0.5rem;
+}
