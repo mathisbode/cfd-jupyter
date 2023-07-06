@@ -32,6 +32,7 @@
   <li class="nav-item"><a id="{{prefix}}links-nav-item" class="nav-link text-decoration-none" href="/links">Links</a></li>
   <li class="nav-item"><a id="{{prefix}}status-nav-item" class="nav-link text-decoration-none" target="_blank" href="https://status.jsc.fz-juelich.de/">JSC Status</a></li>
   <li class="nav-item"><a id="{{prefix}}docs-nav-item" class="nav-link text-decoration-none" target="_blank" href="https://docs.jupyter-jsc.fz-juelich.de/github/FZJ-JSC/jupyter-jsc-notebooks/blob/documentation/index.ipynb">Documentation</a></li>
+  {% if user and user.admin -%}
   <li class="nav-item"><a id="{{prefix}}admin-nav-item" class="nav-link text-decoration-none" href="/admin">Admin</a></li>
   <li class="nav-item"><a id="{{prefix}}logging-nav-item" class="nav-link text-decoration-none" href="/logging">Logging</a></li>
   {%- endif %}
