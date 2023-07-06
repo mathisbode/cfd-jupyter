@@ -42,9 +42,6 @@
 <nav class="navbar navbar-light navbar-expand-lg bg-white pb-0">
   <div class="container-fluid">
     {#- Logo left #}
-    <a class="navbar-brand" href="https://fz-juelich.de/jsc/en" target="_blank">
-      <img id="jsc-logo" class="p-3" height="90px" title="https://fz-juelich.de/jsc/en" alt='JSC' src='{{ static_url("images/header/jsc.png", include_version=False) }}' />
-    </a>
     <a class="navbar-brand" href="https://coec-project.eu/" target="_blank">
       <img id="coec-logo" class="p-3" height="90px" title="https://coec-project.eu/" alt='CoEC' src='{{ static_url("images/header/COEC_LOGO_RGB-01.png", include_version=False) }}' />
     </a>
@@ -57,6 +54,9 @@
     </div>
     <div class="d-flex flex-column align-items-end ms-auto me-2">
       {#- Logo right #}
+      <a class="navbar-brand" href="https://fz-juelich.de/jsc/en" target="_blank">
+        <img id="jsc-logo" class="p-3" height="90px" title="https://fz-juelich.de/jsc/en" alt='JSC' src='{{ static_url("images/header/jsc.png", include_version=False) }}' />
+      </a>
       <a class="navbar-brand me-0" href="/">
         <img id="jupyter-logo" src='{{ static_url("images/header/jupyterjsc.png", include_version=False) }}' height="60px" alt="Jupyter-JSC" title="{{hostname}}">
       </a>
