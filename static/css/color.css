@@ -1,11 +1,12 @@
 /* Define colors */
 :root {
-    --first-color:#2c2a29;   /*#023d6b*/
-    --second-color:#64b1bc;  /*#adbde3*/
-    --third-color:#bfced6;
-    --fourth-color:#f1b434;
-    --fifth-color:#e57200;
+    --third-color:#2c2a29;   
+    --second-color:#64b1bc;  
+    --first-color:#bfced6;
+    --fifth-color:#f1b434;
+    --fourth-color:#e57200;
     
-    --first-color-light:#b6b1af;
+    --first-color-light:#a2b8c3;
+    --third-color-light:#b6b1af;
 
 }
