@@ -29,7 +29,7 @@ div[id^='ampel'] {
 Footer */
 
 #footer-bottom {
-  background-color:  var(--third-color);
+  background-color:  var(--first-color);
   min-height: 60px;
   padding-left: 72px;
   padding-right: 72px;
