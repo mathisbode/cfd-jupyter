@@ -137,7 +137,7 @@
 
 #coec_login
 {
-  background: url("/hub/static/images/pages/login/background.jpg") center center no-repeat;
+  background: url("/hub/static/images/pages/login/background_simple_flame.png") center center no-repeat;
   background-size: cover;
   min-height: 500px;
 }
