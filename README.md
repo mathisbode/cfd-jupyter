@@ -8,6 +8,12 @@ and select **Include all branches** when creating your repository.
 
 Reference templates and static files used by the Jupyter-JSC JupyterHub can be found [in this repository](https://github.com/FZJ-JSC/jupyter-jsc-share).
 
+## Links
+
+- [Production](https://jupyter-coec.jsc.fz-juelich.de)
+- [Staging](https://jupyter-coec-staging.jsc.fz-juelich.de)
+
+
 ## How to create custom files
 
 Any files which are placed in the `templates` and `static` directories will be used by Jupyter-JSC instead of the [default files](https://github.com/FZJ-JSC/jupyter-jsc-share/tree/main/jupyterhub). To help you to know which files you should modify, the `templates` directory contains files which are frequently  modified for custom JupyterHub instances. The `static` directory contains frequently modified static files such as css files, custom logos, etc.
