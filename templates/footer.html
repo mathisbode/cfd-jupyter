@@ -6,13 +6,6 @@
   {%- endfor -%}
 {%- endmacro -%}
 
-{%- macro number_of_users(system) -%}
-<div class="d-inline-block text-muted ms-1" data-toggle="users-tooltip" title="Number of active {%- if system == 'jupyter' %} users {%- else %} servers {%- endif -%}">
-  {{ svg.users_svg | safe }}
-  <span id="{{system}}-users">0</span>
-</div>
-{%- endmacro -%}
-
 {%- macro ampel(system, href) -%}
 {%- set system_lower = system.lower() %}
 <div id="ampel-{{system_lower}}" class="text-center">
@@ -26,7 +19,6 @@
     {{ system }}
     {%- endif -%}
   </a>
-  {{ number_of_users(system_lower) }}
 </div>
 {%- endmacro -%}
 
@@ -97,36 +89,8 @@ require(["jquery", "jhapi"], function ($, JHAPI) {
     })
   }
 
-  function updateNumberOfUsers() {
-    api.api_request("usercount", {
-      success: function(data) {
-        for (const [system, usercount] of Object.entries(data)) {
-          switch (system) {
-            case 'jupyterhub':
-              $("#jupyter-users").html(usercount);
-              break;
-            case 'HDF-Cloud':
-              $(`#hdfcloud-users`).html(usercount['total']);
-              break;
-            default:
-              $(`#${system.toLowerCase()}-users`).html(usercount['total']);
-              var partitionInfos = "";
-              for (const [partition, users] of Object.entries(usercount['partitions']))
-              {
-                partitionInfos += `\n${partition}: ${users}`;
-              }
-              $(`#${system.toLowerCase()}-users`)
-                .parents("[data-toggle]")
-                .attr("data-bs-original-title", `Number of active servers${partitionInfos}`);
-          }
-        }
-      }
-    })
-  }
-
   $(document).ready(function() {
     updateSystemHoverTooltips();
-    updateNumberOfUsers();
     setInterval(updateNumberOfUsers, 60000);
   })
 
