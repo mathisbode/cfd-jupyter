@@ -34,30 +34,6 @@
     {{ ampel("HDFML", "https://status.jsc.fz-juelich.de/services/21") }}
     {{ ampel("HDFCLOUD", "https://status.jsc.fz-juelich.de/services/32") }}
   </div>
-  <div id="footer-bottom" class="container-fluid justify-content-center">
-    {%- set logo_width = "220px" -%}
-    {%- set div_classes = "px-2 text-center" %}
-    <a class="py-2 {{div_classes}}" target="_blank" href="https://www.fz-juelich.de">&copy; Forschungszentrum Jülich</a>
-    <div class="flex-grow-1 {{div_classes}}">
-      {%- set footer_margin = "m-1" %}
-      <a href="/hub/imprint">Legal Notice</a>
-      <span class="{{ footer_margin }}">|</span>
-      <a href="/hub/privacy">Privacy Policy</a>
-      <span class="{{ footer_margin }}">|</span>
-      <a href="/hub/terms">Terms of Service</a>
-      <span class="{{ footer_margin }}">|</span>
-      <a href="mailto:ds-support@fz-juelich.de?subject=Jupyter-JSC Support&amp;body=Please describe your problem here. (english or german)">Support</a>
-    </div>
-    <div class="py-4 {{div_classes}}">
-      <a href="https://www.helmholtz.de/en/" target="_blank">
-        <img id="helmholtz-logo" width="{{ logo_width }}" src='{{ static_url("images/footer/helmholtz.png", include_version=False) }}'/>
-      </a>
-      <p>&nbsp;</p>
-      <a href="https://research-and-innovation.ec.europa.eu/index_en" target="_blank">
-        <img id="horizon-logo" width="{{ logo_width }}" src='{{ static_url("images/footer/EU_Horizon.png", include_version=False) }}'/>
-      </a>
-    </div>
-  </div>
 </footer>
 {%- endblock -%}
 
@@ -200,6 +176,12 @@ require(["jquery", "jhapi"], function ($, JHAPI) {
 							<div class="elementor-widget-wrap">
 						<div class="elementor-element elementor-element-9d68979 elementor-widget elementor-widget-image" data-id="9d68979" data-element_type="widget" data-widget_type="image.default">
 				<div class="elementor-widget-container">
+
+
+      <a href="https://research-and-innovation.ec.europa.eu/index_en" target="_blank">
+        <img id="horizon-logo" width="{{ logo_width }}" src='{{ static_url("images/footer/EU_Horizon.png", include_version=False) }}'/>
+      </a>
+
 								<div class="elementor-image">
 												<img width="91" height="61" src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2091%2061'%3E%3C/svg%3E" class="attachment-full size-full wp-image-34" alt="" data-lazy-src="https://coec-project.eu/wp-content/uploads/2020/12/eu.jpg" /><noscript><img width="91" height="61" src="https://coec-project.eu/wp-content/uploads/2020/12/eu.jpg" class="attachment-full size-full wp-image-34" alt="" /></noscript>														</div>
 						</div>
