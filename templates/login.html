@@ -21,49 +21,6 @@
 {%- endmacro -%}
 
 
-{%- block main -%}
-<div class="row g-0 h-100 justify-content-center">
-  <div class="col-12 col-lg-4 order-lg-1">
-    <div id="login-div" class="d-flex flex-column bg-secondary h-100">
-      <div id="upper-login-div" class="d-flex flex-column justify-content-center mx-auto p-4">
-        <h3>Jupyter-CoEC</h3>
-        <h4>Green Energy and Supercomputing in Your Browser</h4>
-        <p class="fs-5">
-            <br><br>
-            Jupyter-CoEC provides access to Jupyter Notebook servers running on JSC
-            world-leading compute resources (JUWELS, JURECA, JUSUF, HDFML, DEEP, HDF-Cloud) and
-            enables Exascale simulations in the future. Benefit from a wide range of notebooks
-            and workflows tailored for multiphysics (esp. combustion), energy, and CFD simulations
-            or simply bring your own simulations to success
-        </p>
-      </div>
-      <div id="lower-login-div" class="bg-info">
-        <div class="d-flex justify-content-center align-items-center mx-auto p-4">
-            <a id="btn-login" class="btn btn-primary" role="button">Login</a>
-            <div class="white-line"></div>
-            <img src='{{static_url("images/pages/login/User.svg", include_version=False) }}' />
-            <div class="white-line"></div>
-            <a id="btn-register" class="btn btn-primary" role="button" 
-              href="https://judoor.fz-juelich.de">Register</a>
-        </div>
-      </div>
-    </div>
-  </div>
-
-
-<div id="coec_login" class="col-12 col-lg-8 order-lg-0">
-    <div id="coec_login_inner" class="justify-content-center">
-      <h3>State-of-the-Art Simulations and Workflows</h3><br>
-      <p>
-       Jupyter-CoEC enables cutting-edge workflows across scales - from Exascale
-       simulations to industral optimizations. This simplifies usage of complex codes
-       and significantly reduces the overall time-to-solution.
-      </p>
-    </div>
-</div>
- 
-</div>
-{%- endblock -%}
 
 
 <div id="content" class="site-content">
