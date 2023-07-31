@@ -141,13 +141,12 @@
   padding: 1.5rem 1.5rem 1.5rem 1.5rem;
   margin: 0% 7% 0 7%;
   max-width: 900px;
-  max-height: 75px;
   width: auto;
   background-color: rgb(255, 255, 255, 0.7);
   position: relative;
   top: 48.5%;
   
-  transform: translateY(-100%);
+  transform: translateY(-200%);
 }
 
 
