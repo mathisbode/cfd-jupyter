@@ -135,13 +135,6 @@
 }
 
 
-#coec_login
-{
-  background: url("/hub/static/images/pages/login/background_simple_flame.png") center center no-repeat;
-  background-size: cover;
-  min-height: 500px;
-}
-
 #coec_login_inner
 {
   color: black;
@@ -152,7 +145,8 @@
   background-color: rgb(255, 255, 255, 0.7);
   position: relative;
   top: 48.5%;
-
+  
+  transform: translateY(-100%);
 }
 
 
