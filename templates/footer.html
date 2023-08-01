@@ -6,13 +6,6 @@
   {%- endfor -%}
 {%- endmacro -%}
 
-{%- macro number_of_users(system) -%}
-<div class="d-inline-block text-muted ms-1" data-toggle="users-tooltip" title="Number of active {%- if system == 'jupyter' %} users {%- else %} servers {%- endif -%}">
-  {{ svg.users_svg | safe }}
-  <span id="{{system}}-users">0</span>
-</div>
-{%- endmacro -%}
-
 {%- macro ampel(system, href) -%}
 {%- set system_lower = system.lower() %}
 <div id="ampel-{{system_lower}}" class="text-center">
@@ -26,7 +19,6 @@
     {{ system }}
     {%- endif -%}
   </a>
-  {{ number_of_users(system_lower) }}
 </div>
 {%- endmacro -%}
 
@@ -41,30 +33,6 @@
     {{ ampel("DEEP", "https://status.jsc.fz-juelich.de/services/43") }}
     {{ ampel("HDFML", "https://status.jsc.fz-juelich.de/services/21") }}
     {{ ampel("HDFCLOUD", "https://status.jsc.fz-juelich.de/services/32") }}
-  </div>
-  <div id="footer-bottom" class="container-fluid justify-content-center">
-    {%- set logo_width = "220px" -%}
-    {%- set div_classes = "px-2 text-center" %}
-    <a class="py-2 {{div_classes}}" target="_blank" href="https://www.fz-juelich.de">&copy; Forschungszentrum Jülich</a>
-    <div class="flex-grow-1 {{div_classes}}">
-      {%- set footer_margin = "m-1" %}
-      <a href="/hub/imprint">Legal Notice</a>
-      <span class="{{ footer_margin }}">|</span>
-      <a href="/hub/privacy">Privacy Policy</a>
-      <span class="{{ footer_margin }}">|</span>
-      <a href="/hub/terms">Terms of Service</a>
-      <span class="{{ footer_margin }}">|</span>
-      <a href="mailto:ds-support@fz-juelich.de?subject=Jupyter-JSC Support&amp;body=Please describe your problem here. (english or german)">Support</a>
-    </div>
-    <div class="py-4 {{div_classes}}">
-      <a href="https://www.helmholtz.de/en/" target="_blank">
-        <img id="helmholtz-logo" width="{{ logo_width }}" src='{{ static_url("images/footer/helmholtz.png", include_version=False) }}'/>
-      </a>
-      <p>&nbsp;</p>
-      <a href="https://research-and-innovation.ec.europa.eu/index_en" target="_blank">
-        <img id="horizon-logo" width="{{ logo_width }}" src='{{ static_url("images/footer/EU_Horizon.png", include_version=False) }}'/>
-      </a>
-    </div>
   </div>
 </footer>
 {%- endblock -%}
@@ -97,39 +65,176 @@ require(["jquery", "jhapi"], function ($, JHAPI) {
     })
   }
 
-  function updateNumberOfUsers() {
-    api.api_request("usercount", {
-      success: function(data) {
-        for (const [system, usercount] of Object.entries(data)) {
-          switch (system) {
-            case 'jupyterhub':
-              $("#jupyter-users").html(usercount);
-              break;
-            case 'HDF-Cloud':
-              $(`#hdfcloud-users`).html(usercount['total']);
-              break;
-            default:
-              $(`#${system.toLowerCase()}-users`).html(usercount['total']);
-              var partitionInfos = "";
-              for (const [partition, users] of Object.entries(usercount['partitions']))
-              {
-                partitionInfos += `\n${partition}: ${users}`;
-              }
-              $(`#${system.toLowerCase()}-users`)
-                .parents("[data-toggle]")
-                .attr("data-bs-original-title", `Number of active servers${partitionInfos}`);
-          }
-        }
-      }
-    })
-  }
-
   $(document).ready(function() {
     updateSystemHoverTooltips();
-    updateNumberOfUsers();
     setInterval(updateNumberOfUsers, 60000);
   })
 
 })
 </script>
 {%- endblock -%}
+
+
+
+
+
+</div><!-- #content -->
+		<footer itemtype="https://schema.org/WPFooter" itemscope="itemscope" id="colophon" role="contentinfo">
+			<div class='footer-width-fixer'>		<div data-elementor-type="wp-post" data-elementor-id="29" class="elementor elementor-29" data-elementor-post-type="elementor-hf">
+						<div class="elementor-inner">
+				<div class="elementor-section-wrap">
+									<section class="elementor-section elementor-top-section elementor-element elementor-element-d185fd3 elementor-section-boxed elementor-section-height-default elementor-section-height-default" data-id="d185fd3" data-element_type="section" data-settings="{&quot;background_background&quot;:&quot;classic&quot;,&quot;_ha_eqh_enable&quot;:false}">
+						<div class="elementor-container elementor-column-gap-default">
+							<div class="elementor-row">
+					<div class="elementor-column elementor-col-100 elementor-top-column elementor-element elementor-element-307b9f1" data-id="307b9f1" data-element_type="column">
+			<div class="elementor-column-wrap elementor-element-populated">
+							<div class="elementor-widget-wrap">
+						<section class="elementor-section elementor-inner-section elementor-element elementor-element-054789a elementor-section-boxed elementor-section-height-default elementor-section-height-default" data-id="054789a" data-element_type="section" data-settings="{&quot;_ha_eqh_enable&quot;:false}">
+						<div class="elementor-container elementor-column-gap-default">
+							<div class="elementor-row">
+					<div class="elementor-column elementor-col-100 elementor-inner-column elementor-element elementor-element-f2af9aa" data-id="f2af9aa" data-element_type="column">
+			<div class="elementor-column-wrap elementor-element-populated">
+							<div class="elementor-widget-wrap">
+						<div class="elementor-element elementor-element-25bc211 elementor-widget elementor-widget-heading" data-id="25bc211" data-element_type="widget" data-widget_type="heading.default">
+				<div class="elementor-widget-container">
+			<h3 class="elementor-heading-title elementor-size-default">Subscribe to our newsletter</h3>		</div>
+				</div>
+				<div class="elementor-element elementor-element-6a9e921 elementor-widget elementor-widget-heading" data-id="6a9e921" data-element_type="widget" data-widget_type="heading.default">
+				<div class="elementor-widget-container">
+			<h5 class="elementor-heading-title elementor-size-default">We will keep you informed of the news</h5>		</div>
+				</div>
+						</div>
+					</div>
+		</div>
+								</div>
+					</div>
+		</section>
+				<section class="elementor-section elementor-inner-section elementor-element elementor-element-46904eb elementor-section-boxed elementor-section-height-default elementor-section-height-default" data-id="46904eb" data-element_type="section" data-settings="{&quot;_ha_eqh_enable&quot;:false}">
+						<div class="elementor-container elementor-column-gap-default">
+							<div class="elementor-row">
+					<div class="elementor-column elementor-col-100 elementor-inner-column elementor-element elementor-element-cf9851a" data-id="cf9851a" data-element_type="column">
+			<div class="elementor-column-wrap elementor-element-populated">
+							<div class="elementor-widget-wrap">
+						<div class="elementor-element elementor-element-9c5478f elementor-button-align-center elementor-widget elementor-widget-form" data-id="9c5478f" data-element_type="widget" data-settings="{&quot;step_next_label&quot;:&quot;Next&quot;,&quot;step_previous_label&quot;:&quot;Previous&quot;,&quot;button_width&quot;:&quot;100&quot;,&quot;step_type&quot;:&quot;number_text&quot;,&quot;step_icon_shape&quot;:&quot;circle&quot;}" data-widget_type="form.default">
+				<div class="elementor-widget-container">
+					<form class="elementor-form" method="post" name="New Form">
+			<input type="hidden" name="post_id" value="29"/>
+			<input type="hidden" name="form_id" value="9c5478f"/>
+			<input type="hidden" name="referer_title" value="Home - COEC" />
+
+							<input type="hidden" name="queried_id" value="2"/>
+			
+			<div class="elementor-form-fields-wrapper elementor-labels-">
+								<div class="elementor-field-type-email elementor-field-group elementor-column elementor-field-group-email elementor-col-100 elementor-field-required">
+												<label for="form-field-email" class="elementor-field-label elementor-screen-only">
+								Email							</label>
+														<input size="1" type="email" name="form_fields[email]" id="form-field-email" class="elementor-field elementor-size-sm  elementor-field-textual" placeholder="Email" required="required" aria-required="true">
+											</div>
+								<div class="elementor-field-type-acceptance elementor-field-group elementor-column elementor-field-group-field_f9ae89b elementor-col-100 elementor-field-required">
+							<div class="elementor-field-subgroup">
+			<span class="elementor-field-option">
+				<input type="checkbox" name="form_fields[field_f9ae89b]" id="form-field-field_f9ae89b" class="elementor-field elementor-size-sm  elementor-acceptance-field" required="required" aria-required="true">
+				<label for="form-field-field_f9ae89b">I have read and accepted <a href="https://coec-project.eu/legal-notice/"target="_blank">the privacy policy.</a></label>			</span>
+		</div>
+						</div>
+								<div class="elementor-field-group elementor-column elementor-field-type-submit elementor-col-100 e-form__buttons">
+					<button type="submit" class="elementor-button elementor-size-sm">
+						<span >
+															<span class=" elementor-button-icon">
+																										</span>
+																						<span class="elementor-button-text">Subscribe</span>
+													</span>
+					</button>
+				</div>
+			</div>
+		</form>
+				</div>
+				</div>
+						</div>
+					</div>
+		</div>
+								</div>
+					</div>
+		</section>
+						</div>
+					</div>
+		</div>
+								</div>
+					</div>
+		</section>
+				<section class="elementor-section elementor-top-section elementor-element elementor-element-d94655e elementor-section-content-middle elementor-section-boxed elementor-section-height-default elementor-section-height-default" data-id="d94655e" data-element_type="section" data-settings="{&quot;background_background&quot;:&quot;gradient&quot;,&quot;_ha_eqh_enable&quot;:false}">
+						<div class="elementor-container elementor-column-gap-default">
+							<div class="elementor-row">
+				
+
+<div class="elementor-column elementor-col-50 elementor-top-column elementor-element elementor-element-31396ac" data-id="31396ac" data-element_type="column">
+			<div class="elementor-column-wrap elementor-element-populated">
+							<div class="elementor-widget-wrap">
+						<section class="elementor-section elementor-inner-section elementor-element elementor-element-7f94388 elementor-section-boxed elementor-section-height-default elementor-section-height-default" data-id="7f94388" data-element_type="section" data-settings="{&quot;_ha_eqh_enable&quot;:false}">
+						<div class="elementor-container elementor-column-gap-default">
+							<div class="elementor-row">
+					<div class="elementor-column elementor-col-50 elementor-inner-column elementor-element elementor-element-89bc6c3" data-id="89bc6c3" data-element_type="column">
+			<div class="elementor-column-wrap elementor-element-populated">
+							<div class="elementor-widget-wrap">
+						<div class="elementor-element elementor-element-9d68979 elementor-widget elementor-widget-image" data-id="9d68979" data-element_type="widget" data-widget_type="image.default">
+				<div class="elementor-widget-container">
+								<div class="elementor-image">
+												<img src="https://coec-project.eu/wp-content/uploads/2020/12/eu.jpg" class="attachment-full size-full wp-image-34 entered lazyloaded" alt="" data-lazy-src="https://coec-project.eu/wp-content/uploads/2020/12/eu.jpg" data-ll-status="loaded" data-zoom-image="https://coec-project.eu/wp-content/uploads/2020/12/eu.jpg" width="91" height="61"><noscript><img width="91" height="61" src="https://coec-project.eu/wp-content/uploads/2020/12/eu.jpg" class="attachment-full size-full wp-image-34" alt="" /></noscript>														</div>
+						</div>
+				</div>
+						</div>
+					</div>
+		</div>
+				<div class="elementor-column elementor-col-50 elementor-inner-column elementor-element elementor-element-c783ac6" data-id="c783ac6" data-element_type="column">
+			<div class="elementor-column-wrap elementor-element-populated">
+							<div class="elementor-widget-wrap">
+						<div class="elementor-element elementor-element-912cfdb elementor-widget elementor-widget-text-editor" data-id="912cfdb" data-element_type="widget" data-widget_type="text-editor.default">
+				<div class="elementor-widget-container">
+								<div class="elementor-text-editor elementor-clearfix">
+				<p>The CoEC project has received funding from the European Union’s Horizon 2020 research and innovation programme under grant agreement No 952181.</p><p>© COEC.EU COPYRIGHT 2023</p>					</div>
+						</div>
+				</div>
+						</div>
+					</div>
+		</div>
+								</div>
+					</div>
+		</section>
+						</div>
+					</div>
+		</div>
+
+
+				<div class="elementor-column elementor-col-50 elementor-top-column elementor-element elementor-element-e8d32f8" data-id="e8d32f8" data-element_type="column">
+			<div class="elementor-column-wrap elementor-element-populated">
+
+<div class="elementor-column-wrap">
+<a href="https://jupyter-jsc.fz-juelich.de" target="_blank">
+        <img id="jupyter-jsc-logo" src="/hub/static/images/header/jsc.png">
+      </a>
+</div>
+
+							<div class="elementor-widget-wrap">
+						<div class="elementor-element elementor-element-0b46131 elementor-shape-circle e-grid-align-right e-grid-align-tablet-center elementor-grid-0 elementor-widget elementor-widget-social-icons" data-id="0b46131" data-element_type="widget" data-widget_type="social-icons.default">
+				<div class="elementor-element elementor-element-aceb545 elementor-drop-cap-yes elementor-drop-cap-view-default elementor-widget elementor-widget-text-editor" data-id="aceb545" data-element_type="widget" data-settings="{&quot;drop_cap&quot;:&quot;yes&quot;}" data-widget_type="text-editor.default">
+
+
+								<div class="elementor-text-editor elementor-clearfix">
+<a href="https://jupyter-jsc.fz-juelich.de/hub/imprint">Legal Notice</a><br>
+<a href="privacy">Privacy Policy</a>  <br>           
+<a href="https://jupyter-jsc.fz-juelich.de/hub/terms">Terms of Service</a>      <br>       
+<a href="mailto:jupyter-coec-support@fz-juelich.de">Support</a>             				
+					</div>
+						</div>
+				</div>
+						</div>
+					</div>
+		</div>
+								</div>
+					</div>
+		</section>
+									</div>
+			</div>
+					</div>
+		</div>		</footer>
+		</div>
