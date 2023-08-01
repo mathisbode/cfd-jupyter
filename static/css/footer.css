@@ -15,6 +15,9 @@ div[id^='ampel'] {
   min-width: 150px;
 }
 
+
+#jupyter-jsc-logo { height: 200px; }
+
 #footer-top a {
   color:  var(--first-color);
   font-weight: bold;
