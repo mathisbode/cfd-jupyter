@@ -129,6 +129,8 @@ flexibility(document.documentElement);</script>
 
 
 
+{%- macro user_information() -%}
+{%- if user %}
 <div class="elementor-element elementor-element-f9a74ae elementor-widget elementor-widget-button" data-id="f9a74ae" data-element_type="widget" data-widget_type="button.default" style="display: flex; justify-content: flex-end">
 	<div class="elementor-widget-container">
 		<div class="elementor-button-wrapper">
@@ -143,3 +145,9 @@ flexibility(document.documentElement);</script>
 	</div>
 </div>
 
+{%- else %}
+<div class="empty mb-3"></div>
+{%- endif -%}
+{%- endmacro -%}
+
+{{ user_information() }}
