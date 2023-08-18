@@ -25,6 +25,11 @@ tr.lab-collapsible-tr {
 }
 
 
+#jupyterlabs-table{
+  border-width: 1px 1px 1px 1px;
+}
+
+
 /*
 Info icon
 */
