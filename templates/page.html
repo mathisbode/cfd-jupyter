@@ -55,6 +55,7 @@
     });
   </script>
   <script type="text/javascript">
+    var evtSourcesGlobal = {};
     window.jhdata = {
       base_url: "{{base_url}}",
       prefix: "{{prefix}}",
@@ -118,6 +119,15 @@
     }
     $( function() { enableTooltips() });
   </script>
+  <script>
+    window.onbeforeunload = function() {
+      if (typeof evtSourcesGlobal !== 'undefined') {
+          for (const [key, value] of Object.entries(evtSourcesGlobal)) {
+              value.close();
+          }
+      }
+    }
+    </script>  
   {% block script -%}
   {%- endblock %}
 </body>
