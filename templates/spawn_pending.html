@@ -7,6 +7,7 @@
 {%- endblock -%}
 
 {%- macro create_text_input(label, value) -%}
+{%- if value -%}
 {%- set key = label.lower() %}
 <div id="{{key}}-input-div"  class="row mb-3">
   <label for="{{ key }}-input" class="col-4 col-form-label">{{ label }}</label>
@@ -14,6 +15,7 @@
     <input type="text" class="form-control" id="{{ key }}-input" value="{{value}}" disabled>
   </div>
 </div>
+{%- endif -%}
 {%- endmacro -%}
 
 {%- macro create_number_input(label, value) -%}
@@ -39,11 +41,17 @@
 
 {%- set user_options = spawner.user_options -%}
 {%- set name = user_options.get("name") -%}
-{%- set service = user_options.get("service").split('/')[0] -%}
-{%- set option = user_options.get("service").split('/')[1] -%}
-{%- set service_name = auth_state.get("custom_config", {}).get("services").get(service).get("options").get(option).get("name") -%}
+{%- if "profile" in user_options -%}
+{%- set service = user_options.get("profile", "JupyterLab/3.6").split('/')[0] -%}
+{%- set option = user_options.get("profile", "JupyterLab/3.6").split('/')[1] -%}
+{%- else -%}
+{%- set service = user_options.get("service", "JupyterLab/3.6").split('/')[0] -%}
+{%- set option = user_options.get("service", "JupyterLab/3.6").split('/')[1] -%}
+{%- endif -%}
+{%- set service_name = custom_config.get("services").get(service).get("options").get(option).get("name") -%}
 {%- set version = user_options.get("options", "JupyterLab") -%}
 {%- set system = user_options.get("system", None) -%}
+{%- set flavor = user_options.get("flavor", None) -%}
 {%- set account = user_options.get("account", None) -%}
 {%- set project = user_options.get("project", None) -%}
 {%- set partition = user_options.get("partition", None) -%}
@@ -52,7 +60,7 @@
 {%- set runtime = user_options.get("runtime", None) -%}
 {%- set xserver = user_options.get("xserver", None) -%}
 {%- set gpus = user_options.get("gpus", None) -%}
-{%- set additional_spawn_options = user_options.get("additional_spawn_options", {}) -%}
+{%- set userModules = user_options.get("userModules", {}) -%}
 
 {#- Check if we should disable any tabs -#}
 {%- set no_resources = True -%}
@@ -70,7 +78,7 @@
     <div class="accordion-item" style="border-bottom-right-radius: .25rem;border-bottom-left-radius: .25rem;">
       <h2 class="accordion-header" id="labInfo">
         <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#labInfoCollapse">
-         
+ 
         </button>
       </h2>
       <div id="labInfoCollapse" class="accordion-collapse collapse" data-bs-parent="#labInfoAccordion">
@@ -81,7 +89,7 @@
             <div class="nav flex-column nav-pills p-3 ps-0" id="tab" role="tablist">
               <button class="nav-link active {{ nav_tab_margins }}" id="config-info-tab" data-bs-toggle="pill" data-bs-target="#config-info" type="button" role="tab">Lab Config</button>
               <button class="nav-link {{ nav_tab_margins }} {%- if no_resources %} disabled {%- endif %}" id="resources-info-tab" data-bs-toggle="pill" data-bs-target="#resources-info" type="button" role="tab" >Resources</button>
-              <button class="nav-link {{ nav_tab_margins }} {%- if not additional_spawn_options %} disabled {%- endif %}" id="modules-info-tab" data-bs-toggle="pill" data-bs-target="#modules-info" type="button" role="tab" >Kernels and Extensions</span></button>
+              <button class="nav-link {{ nav_tab_margins }} {%- if not userModules %} disabled {%- endif %}" id="modules-info-tab" data-bs-toggle="pill" data-bs-target="#modules-info" type="button" role="tab" >Kernels and Extensions</span></button>
             </div>
             {#- TAB NAV CONTENT -#}
             <div class="tab-content w-100" id="tabContent">
@@ -90,6 +98,7 @@
                 {{ create_text_input("Version", service_name) }}
                 <hr>
                 {{ create_text_input("System", system) }}
+                {{ create_text_input("Flavor", flavor) }}
                 {{ create_text_input("Account", account) }}
                 {{ create_text_input("Project", project) }}
                 {{ create_text_input("Partition", partition) }}
@@ -102,7 +111,7 @@
                 {%- if not no_resources -%}
                   {%- if nodes -%} {{ create_number_input("Nodes", nodes) }} {%- endif %}
                   {%- if gpus -%} {{ create_number_input("GPUs", gpus) }} {%- endif %}
-                  {%- if runtime -%} {{ create_number_input("Runtime", (runtime/60)|int) }} {%- endif %}
+                  {%- if runtime -%} {{ create_number_input("Runtime", (runtime)|int) }} {%- endif %}
                   {%- set resources = auth_state.get("options_form", {}).get('resources', {}) -%}
                   {%- set xserver_options = resources.get(option, {}).get(system, {}).get(partition, {}).get("xserver", {}) -%}
                   {%- set show_checkbox = xserver_options.get("checkbox", False) -%}
@@ -118,8 +127,8 @@
                 {%- endif %}
               </div>
               <div class="tab-pane fade" id="modules-info" role="tabpanel">
-              {%- if additional_spawn_options -%}
-                {%- set module_sets = auth_state.get("custom_config", {}).get("additional_spawn_options", {}) %}
+              {%- if userModules -%}
+                {%- set module_sets = custom_config.get("userModules", {}) %}
                 {%- for set, modules in module_sets.items() -%}
                   {% set ns = namespace(first = true) -%}
                   {%- for module, module_info in modules.items() -%}
@@ -128,7 +137,7 @@
                     <div class="row g-0">
                     {%- endif %}
                       <div class="form-check col-sm-6 col-md-4 col-lg-3">
-                        <input type="checkbox" class="form-check-input" id="{{ module }}-check" disabled {%- if module in additional_spawn_options %} checked {%- endif %}>
+                        <input type="checkbox" class="form-check-input" id="{{ module }}-check" disabled {%- if module in userModules %} checked {%- endif %}>
                           <label class="form-check-label" for="{{ module }}-check">
                             <span class="align-middle">{{ module_info['displayName'] }}</span>
                             <a href="{{ module_info['href'] }}" target="_blank" class="text-muted">{{ svg.info_svg | safe }}</a>
@@ -157,7 +166,7 @@
         <div id="progress-info-text" class="text-center text-muted my-auto w-100" style="font-size: smaller;">spawning...</div>
       </div>
       <button id="cancel" type="button" class="btn btn-danger ms-4" disabled>{{ svg.stop_svg | safe }} Cancel </button>
-      <button id="retry" type="button" class="btn btn-primary ms-4 d-none" disabled>{{ svg.retry_svg | safe }} Retry </button>
+      <button id="retry" type="button" class="btn btn-primary ms-4" style="display: none;" disabled>{{ svg.retry_svg | safe }} Retry </button>
     </div>
     <div class="card-body text-black">
       <div id="log"></div>
@@ -169,23 +178,25 @@
 
 {%- block script -%}
 {%- set cancel_progress_refresh_rate = 1000 -%}
-{%- set cancel_progress_activation = 30 -%}
+{%- set cancel_progress_activation = 0 -%}
 {%- set cancel_progress_deactivation = 99 -%}
 
 <script>
-require(["jquery", "jhapi", "utils"], function (
+require(["jquery", "jhapi", "home/utils"], function (
   $,
   JHAPI,
   utils
 ) {
   var base_url = window.jhdata.base_url;
   var user = window.jhdata.user;
-  var api = new JHAPI(base_url); 
+  var api = new JHAPI(base_url);
+  var timeout;
 
   // Cancel server spawn on click
   $("#cancel").click(function (event) {
     $("#cancel").attr("disabled", true);
     api.cancel_named_server(user, "{{spawner.name}}");
+    clearTimeout(timeout);
   });
 
   // Retry server spawn on click
@@ -195,8 +206,8 @@ require(["jquery", "jhapi", "utils"], function (
     api.start_named_server(user, "{{spawner.name}}", {
       data: JSON.stringify({{spawner.user_options | safe}}),
       success: function () {
-        $("#retry").addClass("d-none");
-        $("#cancel").attr("disabled", true).removeClass("d-none");
+        $("#retry").hide();
+        $("#cancel").attr("disabled", true).show();
         $("#progress-bar").removeClass("bg-danger");
         $("#progress-info-text").html("spawning...");
         $("#log").html("");
@@ -216,54 +227,81 @@ require(["jquery", "jhapi", "utils"], function (
   });
 
   function updateStatus() {
-    var interv = setInterval(_updateStatus, {{ cancel_progress_refresh_rate }});
-    var logged = [];
-
-    function _updateStatus() {
-      api.api_request(`/users/progress/status/${user}/{{spawner.name}}`, {
-        success: function (data) {
-          data["events"].forEach(function (event) {
-            const perc = event["progress"];
-            const htmlMsg = event["html_message"];
-
-            if (Number(perc) && !(logged.includes(htmlMsg))) {
-              logged.push(htmlMsg);
-              $("#progress-bar").html('<b>' + perc + '%</b>');
-              if (htmlMsg) {
-                $("#log").append($('<div class="log-div">').html(htmlMsg));
-              }
-              if (perc >= {{ cancel_progress_activation }}) {
-                $("#cancel").removeAttr("disabled");
-              }
-              if (perc == {{ cancel_progress_deactivation }}) {
-                $("#cancel").attr("disabled", true);
-                $(`#progress-bar`).addClass("bg-danger");
-                $("#progress-info-text").html("cancelling...");
-              }
-              // Clear interval on 100%
-              if (perc == 100) {
-                clearInterval(interv);
-                if (event["failed"]) {
-                  $(`#progress-bar`).html("").addClass("bg-danger");
-                  $("#progress-info-text").html("last spawn failed");
-                  $("#retry").removeAttr("disabled").removeClass("d-none");
-                  $("#cancel").addClass("d-none");
-                } else {
-                  window.location.reload();
-                }
-              }
-            }
-          })
-        },
-        error: function () {
-          clearInterval(interv);
+    let id = "{{ spawner.name }}";
+    let progressUrl = `${window.jhdata.base_url}api/users/${window.jhdata.user}/servers/${id}/progress?_xsrf=${window.jhdata.xsrf_token}`;
+    let evtSource = new EventSource(progressUrl);
+    evtSource.onmessage = (e) => {
+      const evt = JSON.parse(e.data);
+      if (evt.progress !== undefined && evt.progress != 0) {
+        if (evt.progress == 100) {
+          evtSource.close();
+          delete evtSource;
+          
+          if (evt.failed) {
+            // Update UI via spawnStatusChangedEvtSource so that 
+            // it happens after the stop has finished in the backend
+            clearTimeout(timeout);
+          }
+          else {
+            $(`#progress-bar`).removeClass("bg-danger").addClass("bg-success");
+            $("#progress-info-text").html("redirecting...");
+            window.location.reload();
+          }
         }
-      })
+        else {
+          $("#progress-bar").html('<b>' + evt.progress + '%</b>');
+          if (evt.progress >= {{ cancel_progress_activation }}) {
+            $("#cancel").removeAttr("disabled");
+          }
+          if (evt.progress == {{ cancel_progress_deactivation }}) {
+            $("#cancel").attr("disabled", true);
+            $(`#progress-bar`).addClass("bg-danger");
+            $("#progress-info-text").html("cancelling...");
+          }
+          if (evt.progress == 95) {
+            // Refresh if stuck on 95%
+            timeout = setTimeout(() => window.location.reload(), 120000);
+          }
+        }
+      }
+
+      if (evt.html_message !== undefined) {
+        var htmlMsg = evt.html_message
+      } else if (evt.message !== undefined) {
+        var htmlMsg = evt.message;
+      }
+      if (htmlMsg) {
+        try { htmlMsg = htmlMsg.replace(/&nbsp;/g, ' '); }
+        catch (e) { return; }
+        // Only append if a log message has not been appended yet
+        var exists = false;
+        $("#log").children().each(function (i, e) {
+          let logMsg = $(e).html();
+          if (htmlMsg == logMsg) exists = true;
+        })
+        if (!exists)
+          $("#log").append($('<div class="log-div">').html(htmlMsg));
+        }
     }
   }
 
   $( document ).ready(function() {
     updateStatus();
+    
+    let userSpawnerNotificationUrl = `${jhdata.base_url}api/users/${jhdata.user}/notifications/spawners?_xsrf=${window.jhdata.xsrf_token}`;
+    evtSourcesGlobal["pending"] = new EventSource(userSpawnerNotificationUrl);
+    evtSourcesGlobal["pending"].onmessage = (e) => {
+      const data = JSON.parse(e.data);
+      utils.updateNumberOfUsers();
+      for (const id of data.stopped || []) {
+        if (id == "{{spawner.name}}") {
+          $(`#progress-bar`).html("").addClass("bg-danger");
+          $("#progress-info-text").html("last spawn failed");
+          $("#retry").removeAttr("disabled").show();
+          $("#cancel").hide();
+        }
+      }
+    }
   });
 });
 </script>
